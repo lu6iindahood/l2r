@@ -1,0 +1,51 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --background: 0 0% 2%;
+    --foreground: 240 5% 90%;
+  }
+
+  body {
+    background-color: #050505;
+    color: #d4d4d8;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    overflow-x: hidden;
+  }
+}
+
+/* Professional Polish matrix grid overlay */
+.cyber-grid {
+  background-size: 32px 32px;
+  background-image: 
+    linear-gradient(to right, rgba(255, 255, 255, 0.015) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.015) 1px, transparent 1px);
+}
+
+.glow-matrix-green {
+  box-shadow: 0 0 10px rgba(0, 255, 65, 0.35), 0 0 20px rgba(0, 255, 65, 0.15);
+}
+
+.glow-cyan {
+  box-shadow: 0 0 10px rgba(34, 211, 238, 0.35), 0 0 20px rgba(34, 211, 238, 0.15);
+}
+
+/* Custom dark scrollbar */
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+
+::-webkit-scrollbar-track {
+  background: #080808;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #27272a;
+  border-radius: 2px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #3f3f46;
+}
+
