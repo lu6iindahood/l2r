@@ -1,5 +1,6 @@
 import express from 'express';
 import path from 'path';
+import fs from 'fs';
 import { createServer as createViteServer } from 'vite';
 import { client, initDatabase } from './src/db/index.js';
 import { discordManager } from './src/server/discordManager.js';
@@ -381,18 +382,20 @@ app.post('/api/test/generate-event', async (req, res) => {
 // 6. Vite Middleware & Static Serving Setup
 // ----------------------------------------------------
 async function startApp() {
-  if (process.env.NODE_ENV !== 'production') {
+  const distPath = path.join(process.cwd(), 'dist');
+  const hasBuiltDist = fs.existsSync(path.join(distPath, 'index.html'));
+
+  if (hasBuiltDist) {
+    app.use(express.static(distPath));
+    app.get('*', (req, res) => {
+      res.sendFile(path.join(distPath, 'index.html'));
+    });
+  } else {
     const vite = await createViteServer({
       server: { middlewareMode: true },
       appType: 'spa',
     });
     app.use(vite.middlewares);
-  } else {
-    const distPath = path.join(process.cwd(), 'dist');
-    app.use(express.static(distPath));
-    app.get('*', (req, res) => {
-      res.sendFile(path.join(distPath, 'index.html'));
-    });
   }
 
   app.listen(PORT, '0.0.0.0', () => {
